@@ -1,15 +1,21 @@
 import json
-import numpy
 import sys
+import numpy as np
 
 from match import match
 
-sequence = [1,2,3,4,5,6,7,8,9,0]
+sequence = [2,4,3,1,0,5,8,7,9,6]
 random_numbers = []
-    
-for i in range(int(sys.argv[1])):
-    random_numbers.append(numpy.random.randint(10, size=10).tolist())    
+amount = 0
 
-file = open("./output.json", "w")
-file.write(json.dumps(match(random_numbers, sequence)))
-file.close()
+for i in range(int(sys.argv[1])):
+    random_numbers.append(np.random.choice(range(10), size=10, replace=False).tolist())
+  
+f = match(random_numbers, sequence)
+
+for (i,j) in enumerate(f):
+  if j['right'] >= 1:
+    #print(j)
+    amount += 1
+  
+print(f"Amount right: {amount}")
